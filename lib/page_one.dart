@@ -24,13 +24,19 @@ class _MyWidgetState extends State<PageOne> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Padding(padding: EdgeInsets.all(20)),
-          TextField(
+          SizedBox(
+            width: 200,
+            child: TextField(
             controller: _controller,
             decoration: const InputDecoration(hintText: 'Informe seu Peso:'),
             autofocus: true,
             keyboardType: TextInputType.number,
           ),
-          TextField(
+          ),
+          
+          SizedBox(
+            width: 200,
+            child: TextField(
             controller: _controller2,
             decoration: const InputDecoration(hintText: 'Informe sua Altura:'),
             keyboardType: TextInputType.number,
@@ -44,6 +50,8 @@ class _MyWidgetState extends State<PageOne> {
               }
             },
           ),
+          ),
+          
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -68,12 +76,17 @@ class _MyWidgetState extends State<PageOne> {
               ),
             ],
           ),
+          
           if (imc != null)
             Text('IMC: $imc', style: const TextStyle(fontSize: 20)),
           if (imc == null) const Text('IMC:', style: TextStyle(fontSize: 20)),
           if (classif != null)
-            Text('Classificação: $classif',
+          SizedBox(
+            width: 250,
+            child: Text('Classificação: $classif',
                 style: const TextStyle(fontSize: 20)),
+          ),
+            
           if (classif == null)
             const Text('Classificação:', style: TextStyle(fontSize: 20)),
         ],
@@ -86,8 +99,8 @@ class _MyWidgetState extends State<PageOne> {
     double altura = double.parse(_controller2.text);
     imc = peso / (altura * altura);
 
-    if (imc < 16.9) {
-      classif = 'Muito abixo do peso.';
+    if (imc <= 16.9) {
+      classif = 'Muito abaixo do peso.';
     } else if (imc >= 17 && imc <= 18.4) {
       classif = 'Abaixo do Peso';
     } else if (imc >= 18.5 && imc <= 24.9) {
